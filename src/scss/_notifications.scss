@@ -1,0 +1,22 @@
+@import "variables";
+
+
+:local {
+	.notification {
+		color: #FFFFFF;
+		margin: 4px 0;
+		padding: 8px 12px;
+	}
+	.success {
+		@extend .notification;
+		background-color: $success;
+	}
+	.danger {
+		@extend .notification;
+		background-color: $danger;
+	}
+	.info {
+		@extend .notification;
+		background-color: $info;
+	}
+}

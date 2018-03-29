@@ -1,0 +1,47 @@
+:local{
+    .container {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap
+    }
+    .wrapper {
+        margin: 10px;
+        padding: 5px;
+        width: 300px;
+        box-shadow: 0 3px 0 #e8e8e8;
+        text-align: center;
+        cursor: pointer;
+    }
+    .formWrapper {
+        margin: 10px;
+        padding: 5px;
+        width: 500px;
+        box-shadow: 0 3px 0 #e8e8e8;
+    }
+    .itemText {
+        font-size: xx-large;
+        margin: 0;
+        flex-grow: 1;
+        max-width: 400px;
+    }
+    .itemImage {
+        height: auto;
+        width: auto;
+        max-width: 300px;
+        max-height: 300px;
+    }
+    .itemImageSmall {
+        height: auto;
+        width: auto;
+        max-width: 200px;
+        max-height: 200px;
+    }
+    .rightButon {
+        float: right;
+    }
+    .editButton {
+        margin-right: 10px;
+    }
+
+}

@@ -1,0 +1,182 @@
+@import '_variables';
+
+$labelWidth: 220px;
+$labelHight: 51px;
+
+
+@mixin box-sizing($val) {
+  -webkit-box-sizing: $val;
+     -moz-box-sizing: $val;
+          box-sizing: $val;
+}
+
+@mixin user-select($val...) {
+  -webkit-user-select: $val;
+     -moz-user-select: $val;
+      -ms-user-select: $val;
+          user-select: $val;
+}
+
+@mixin box-shadow($shadows...) {
+  -webkit-box-shadow: $shadows;
+          box-shadow: $shadows;
+}
+
+@function inverse-side($side) {
+  @if      $side == top    { @return bottom; }
+  @else if $side == bottom { @return top; }
+  @else if $side == left   { @return right; }
+  @else if $side == right  { @return left; }
+}
+
+@mixin linear-gradient($gradientLine, $colorStops...) {
+  background-image: -webkit-linear-gradient($gradientLine, $colorStops);
+  background-image:    -moz-linear-gradient($gradientLine, $colorStops);
+  background-image:      -o-linear-gradient($gradientLine, $colorStops);
+  @if length($gradientLine) == 2 {
+  background-image:         linear-gradient(to #{inverse-side(nth($gradientLine, 1))} #{inverse-side(nth($gradientLine, 2))}, $colorStops);
+  } @else {
+  background-image:         linear-gradient(to #{inverse-side($gradientLine)}, $colorStops);
+  }
+}
+
+@mixin radial-gradient($gradient...) {
+  background-image: -webkit-radial-gradient($gradient);
+  background-image:    -moz-radial-gradient($gradient);
+  background-image:      -o-radial-gradient($gradient);
+  background-image:         radial-gradient($gradient);
+}
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+     -moz-transition: $transition;
+       -o-transition: $transition;
+          transition: $transition;
+}
+
+@mixin transition-property($properties...) {
+  -webkit-transition-property: $properties;
+     -moz-transition-property: $properties;
+       -o-transition-property: $properties;
+          transition-property: $properties;
+}
+
+@mixin transform($transform...) {
+  -webkit-transform: $transform;
+     -moz-transform: $transform;
+      -ms-transform: $transform;
+       -o-transform: $transform;
+          transform: $transform;
+}
+
+@mixin clearfix {
+  zoom: 1;
+
+  &:before, &:after {
+    content: '';
+    display: table;
+  }
+
+  &:after { clear: both; }
+}
+
+@mixin inline-block {
+  display: inline-block;
+  vertical-align: baseline;
+  zoom: 1;
+  *display: inline;
+  *vertical-align: auto;
+}
+
+@mixin hide-text() {
+  font: 0/0 serif;
+  text-shadow: none;
+  color: transparent;
+}
+
+@mixin hidpi {
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+         only screen and (min-resolution: 144dpi) {
+    @content;
+  }
+}
+
+:local {
+
+  .switch {
+    position: relative;
+    margin: 20px auto;
+    height: $labelHight;
+    width: $labelWidth * 2 + 4px;
+    background: $default-light;//rgba(black, .24);
+    border-radius: 3px;
+    @include box-shadow(inset 0 1px 3px rgba(black, .3),
+                        0 1px rgba(white, .1));
+  }
+
+  .switchLabel {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: $labelWidth;
+    line-height: $labelHight - 1;
+    color: rgba(white, 0.9);
+    font-size: $labelHight - 20;
+    text-shadow: 0 1px rgba(black, 0.25);
+    text-align: center;
+    cursor: pointer;
+
+    &:active { font-weight: bold; }
+  }
+
+  .switchLabelOff { padding-left: 2px; }
+  .switchLabelOn { padding-right: 2px; }
+
+  /*
+   * Note: using adjacent or general sibling selectors combined with
+   *       pseudo classes doesn't work in Safari 5.0 and Chrome 12.
+   *       See this article for more info and a potential fix:
+   *       http://css-tricks.com/webkit-sibling-bug/
+   */
+
+  .switchInput {
+    display: none;
+
+    &:checked + .switchLabel {
+      font-weight: bold;
+      color: rgba(white, 0.9);
+      text-shadow: 0 1px rgba(black, 0.25);
+      @include transition(.15s ease-out);
+    }
+
+    &:checked + .switchLabelOn ~ .switchSelection {
+      left: $labelWidth + 2px; /* Note: left: 50% doesn't transition in WebKit */
+    }
+  }
+
+  .switchSelection {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 2px;
+    left: 2px;
+    width: $labelWidth;
+    height: $labelHight - 4;
+    background: $success;
+    border-radius: 3px;
+    //@include linear-gradient(top, $success-light, $success);
+    //@include box-shadow(inset 0 1px rgba(white, .5),
+    //                    0 0 2px rgba(black, .2));
+    @include transition(left .15s ease-out);
+
+    .switchBlue & {
+      background: #3aa2d0;
+      @include linear-gradient(top, #4fc9ee, #3aa2d0);
+    }
+
+    .switchYellow & {
+      background: #c4bb61;
+      @include linear-gradient(top, #e0dd94, #c4bb61);
+    }
+  }
+}

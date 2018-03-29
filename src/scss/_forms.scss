@@ -1,0 +1,53 @@
+:local {
+	.form {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-top: 20px;
+		.formRow {
+			& > * {
+				align-self: flex-start;
+				margin-bottom: 1.2em;
+			}
+			label {
+				padding-right: 2em;
+			}
+			.inputStyle {
+				width: 100%;
+				min-width: 320px;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: flex;
+				border: 1px solid #ccc;
+				box-sizing: border-box;
+			}
+			input[type=text], input[type=password] {
+				@extend .inputStyle;
+			}
+			textarea {
+				@extend .inputStyle;
+				max-width: 320px;
+				font-family: inherit;
+				font-size: inherit;
+			}
+		}
+		.button {
+			width: 35%;
+			max-width: 170px;
+		}
+	}
+	.formButtons {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 320px;
+		.item {
+			flex-grow: 1;
+			width: 40%;
+			max-width: 100px;
+			margin-right: 10px;
+		}
+	}
+}
+
